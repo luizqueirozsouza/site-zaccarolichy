@@ -1,0 +1,22 @@
+---
+import { SITE } from '../lib/site';
+import { legalServiceJsonLd, urlAbsoluta } from '../lib/seo';
+interface Props { title: string; description: string; path: string; image?: string; jsonLd?: Record<string, unknown>[] }
+const { title, description, path, image, jsonLd = [] } = Astro.props;
+const canonical = urlAbsoluta(path, Astro.site?.toString() ?? 'https://zaccaro-lichy.pages.dev');
+const ogImage = urlAbsoluta(image ?? '/og-default.jpg', Astro.site?.toString() ?? 'https://zaccaro-lichy.pages.dev');
+const blocos = [legalServiceJsonLd(), ...jsonLd];
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE.nome} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+{blocos.map((bloco) => <script type="application/ld+json" set:html={JSON.stringify(bloco)} />)}

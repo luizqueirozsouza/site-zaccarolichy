@@ -1,0 +1,10 @@
+---
+interface Props { numero: number; titulo: string; resumo: string; href: string }
+const { numero, titulo, resumo, href } = Astro.props;
+---
+<a href={href} class="group grid grid-cols-[3rem_1fr_auto] items-baseline gap-4 border-t border-line py-6 transition-colors hover:bg-sand/60 lg:grid-cols-[4rem_1fr_2fr_auto] lg:px-3">
+  <span class="font-display text-sm text-gold">{String(numero).padStart(2, '0')}</span>
+  <h3 class="font-display text-xl text-navy lg:text-2xl">{titulo}</h3>
+  <p class="col-span-2 text-sm text-muted lg:col-span-1">{resumo}</p>
+  <span class="text-gold transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+</a>

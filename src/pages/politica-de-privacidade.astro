@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE } from '../lib/site';
+---
+<Base title="Política de Privacidade | Zaccaro Lichy Advocacia" description="Política de privacidade e tratamento de dados pessoais do escritório Zaccaro Lichy Advocacia." path="/politica-de-privacidade/">
+  <section class="border-b border-line bg-sand py-14">
+    <div class="container-page">
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'Política de privacidade' }]} />
+      <h1 class="mt-6 text-[clamp(2.25rem,1.6rem+3vw,3.5rem)] leading-[1.1] text-navy">Política de Privacidade</h1>
+      <p class="mt-4 text-sm text-muted">Última atualização: novembro de 2026</p>
+    </div>
+  </section>
+
+  <section class="section container-page">
+    <div class="prose-site max-w-3xl">
+      <h2>Quem somos</h2>
+      <p>Esta política descreve como a {SITE.nome} ({SITE.oab}, CNPJ {SITE.cnpj}), com endereço em {SITE.endereco.rua}, {SITE.endereco.bairro}, {SITE.endereco.cidade}/{SITE.endereco.uf}, CEP {SITE.endereco.cep}, trata os dados pessoais coletados por meio deste site.</p>
+      <p>O controlador dos dados é o próprio escritório. Contato para assuntos de privacidade: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+      <h2>Dados coletados</h2>
+      <p>Coletamos apenas os dados fornecidos voluntariamente no formulário de contato: nome, e-mail, telefone, área de interesse, resumo da situação e indicação de urgência.</p>
+      <p>Não coletamos dados sensíveis por este canal. Recomendamos não enviar documentos, números de processo ou informações sigilosas antes de orientação expressa do escritório.</p>
+
+      <h2>Finalidade e base legal</h2>
+      <p>Os dados são utilizados exclusivamente para responder ao contato, compreender a demanda e indicar os próximos passos. A base legal é o consentimento do titular, nos termos do artigo 7º, inciso I, da Lei nº 13.709/2018 (LGPD).</p>
+      <p>O tratamento é limitado à finalidade informada. Não utilizamos os dados para envio de comunicação promocional.</p>
+
+      <h2>Compartilhamento</h2>
+      <p>Os dados podem ser processados por provedores de infraestrutura e de envio de e-mail contratados pelo escritório, sempre com finalidade de viabilizar a comunicação e sob obrigações de confidencialidade.</p>
+      <p>Não vendemos, alugamos ou cedemos dados pessoais a terceiros para finalidades comerciais.</p>
+
+      <h2>Retenção</h2>
+      <p>Os dados são mantidos pelo tempo necessário ao atendimento e, depois, por até 24 meses contados do último contato, salvo quando houver obrigação legal ou regulatória de retenção por prazo diverso.</p>
+      <p>Encerrado o prazo, os dados são eliminados ou anonimizados.</p>
+
+      <h2>Direitos do titular</h2>
+      <p>Nos termos do artigo 18 da LGPD, o titular pode solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade, eliminação e informações sobre compartilhamento, além de revogar o consentimento.</p>
+      <p>As solicitações devem ser enviadas para <a href={`mailto:${SITE.email}`}>{SITE.email}</a> e serão respondidas nos prazos legais.</p>
+
+      <h2>Cookies</h2>
+      <p>Este site não utiliza cookies de terceiros para publicidade ou rastreamento. Eventuais recursos de segurança do formulário podem empregar tecnologia do provedor de infraestrutura, sem finalidade de perfilamento comportamental.</p>
+
+      <h2>Segurança</h2>
+      <p>Adotamos medidas técnicas e administrativas para proteger os dados contra acesso não autorizado, perda ou alteração indevida. Nenhum ambiente é integralmente imune a incidentes, e eventuais ocorrências relevantes serão comunicadas conforme a lei.</p>
+
+      <h2>Alterações desta política</h2>
+      <p>Esta política pode ser atualizada para refletir mudanças legais ou operacionais. A versão vigente é sempre a publicada nesta página, com a data de atualização indicada no topo.</p>
+
+      <h2>Foro e legislação aplicável</h2>
+      <p>Aplica-se a legislação brasileira, em especial a Lei nº 13.709/2018 (LGPD) e o Marco Civil da Internet (Lei nº 12.965/2014).</p>
+    </div>
+  </section>
+</Base>

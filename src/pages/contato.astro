@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE, WHATSAPP_URL } from '../lib/site';
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+const mapaUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.endereco.rua}, ${SITE.endereco.bairro}, ${SITE.endereco.cidade}`)}`;
+---
+<Base title="Contato | Zaccaro Lichy Advocacia" description="Fale com o escritório Zaccaro Lichy Advocacia em São Paulo. Atendimento presencial e online." path="/contato/">
+  <section class="border-b border-line bg-sand py-14">
+    <div class="container-page">
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'Contato' }]} />
+      <h1 class="mt-6 text-[clamp(2.5rem,1.6rem+4vw,4rem)] leading-[1.08] text-navy">Contato</h1>
+      <p class="mt-5 max-w-2xl text-muted">Descreva brevemente sua situação. A equipe retoma o contato para entender o caso e apresentar as alternativas.</p>
+    </div>
+  </section>
+
+  <section class="section container-page grid gap-14 lg:grid-cols-[1fr_360px]">
+    <div>
+      <h2 class="font-display text-2xl text-navy">Envie uma mensagem</h2>
+      <p class="mt-3 text-sm text-muted">Campos marcados com * são obrigatórios.</p>
+      <div class="mt-8"><ContactForm turnstileKey={turnstileKey} /></div>
+      <p class="mt-8 border-t border-line pt-6 text-xs leading-relaxed text-muted">Aviso ético: este canal destina-se ao contato institucional e ao esclarecimento de dúvidas. O envio de mensagem não constitui contratação de serviços e não cria relação advogado-cliente. Não envie documentos ou informações sigilosas antes de orientação expressa.</p>
+    </div>
+
+    <aside class="border border-line bg-sand p-6">
+      <p class="eyebrow">Escritório</p>
+      <address class="mt-4 not-italic text-sm leading-relaxed text-muted">
+        {SITE.endereco.rua}<br />
+        {SITE.endereco.bairro} — {SITE.endereco.cidade}/{SITE.endereco.uf}<br />
+        CEP {SITE.endereco.cep}
+      </address>
+      <p class="mt-4 text-sm text-muted">{SITE.atendimento}</p>
+
+      <p class="eyebrow mt-6">Telefone e e-mail</p>
+      <p class="mt-4 text-sm text-muted">
+        {SITE.telefone}<br />
+        <a href={`mailto:${SITE.email}`} class="underline">{SITE.email}</a>
+      </p>
+      <a href={WHATSAPP_URL} class="mt-5 inline-flex w-full items-center justify-center bg-navy px-4 py-3 text-sm font-semibold text-white hover:bg-navy-soft">WhatsApp {SITE.whatsapp}</a>
+
+      <a href={mapaUrl} target="_blank" rel="noopener" class="mt-4 inline-flex w-full items-center justify-center border border-navy/25 px-4 py-3 text-sm font-semibold text-navy hover:border-gold hover:text-gold-dark">Ver no Google Maps</a>
+
+      <p class="mt-6 text-xs text-muted">{SITE.oab}<br />CNPJ {SITE.cnpj}</p>
+    </aside>
+  </section>
+</Base>

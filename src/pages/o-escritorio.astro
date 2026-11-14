@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
+import LawyerCard from '../components/LawyerCard.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../lib/site';
+
+const pilares = [
+  { titulo: 'Sigilo absoluto', texto: 'Confidencialidade em todas as etapas do atendimento.' },
+  { titulo: 'Atuação estratégica', texto: 'Análise de cenários para escolher a rota mais segura.' },
+  { titulo: 'Previsibilidade', texto: 'Clareza sobre etapas, prazos e riscos de cada caso.' },
+  { titulo: 'Comunicação clara', texto: 'Linguagem acessível, sem juridiquês desnecessário.' },
+];
+---
+<Base title="O Escritório | Zaccaro Lichy Advocacia" description="Conheça o escritório Zaccaro Lichy Advocacia, sua atuação e seus pilares de trabalho." path="/o-escritorio/">
+  <section class="border-b border-line bg-sand py-14">
+    <div class="container-page">
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'O escritório' }]} />
+      <h1 class="mt-6 max-w-4xl text-[clamp(2.5rem,1.6rem+4vw,4rem)] leading-[1.08] text-navy">O escritório</h1>
+      <p class="mt-5 max-w-2xl text-muted">Advocacia preventiva e contenciosa para pessoas físicas e empresas.</p>
+    </div>
+  </section>
+
+  <section class="section container-page grid gap-12 lg:grid-cols-2">
+    <div>
+      <SectionHeading eyebrow="Institucional" title="Tradição, transparência e segurança jurídica" />
+      <p class="mt-6 text-muted">Fundado com o compromisso de prestar serviços jurídicos de alta precisão técnica, o escritório alia sólida formação acadêmica à agilidade das demandas contemporâneas.</p>
+      <p class="mt-4 text-muted">A advocacia preventiva é tratada como a forma mais eficaz de mitigar riscos e preservar patrimônio. Cada causa é conduzida de forma individualizada, com clareza sobre riscos, etapas processuais e alternativas de resolução.</p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      {pilares.map((p) => (
+        <div class="border-t border-line pt-4"><h2 class="font-display text-xl text-navy">{p.titulo}</h2><p class="mt-2 text-sm text-muted">{p.texto}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section bg-sand">
+    <div class="container-page max-w-3xl">
+      <QuoteBlock texto="A advocacia é indispensável à administração da justiça, sendo inviolável por seus atos e manifestações no exercício da profissão." autor="Artigo 133 da Constituição Federal" />
+    </div>
+  </section>
+
+  <section class="section container-page">
+    <SectionHeading eyebrow="Corpo jurídico" title="Advogado responsável" />
+    <div class="mt-10 max-w-3xl">
+      <LawyerCard nome="Dr. Davi Zaccaro Lichy" cargo="Sócio fundador" oab={SITE.oab} bio="Pós-graduado em Direito Penal, Processo Penal e Direito Imobiliário, e pós-graduando em Direito Empresarial. Atuação estratégica consultiva e contenciosa perante tribunais estaduais e superiores." />
+      <Button href="/equipe/davi-zaccaro-lichy/" variant="text" class="mt-6">Ver perfil completo</Button>
+    </div>
+  </section>
+
+  <section class="bg-navy py-20 text-white">
+    <div class="container-page flex flex-wrap items-center justify-between gap-6">
+      <h2 class="text-[clamp(2rem,1.4rem+2.4vw,3rem)]">Converse com o escritório</h2>
+      <Button href="/contato/" variant="light">Fale conosco</Button>
+    </div>
+  </section>
+</Base>

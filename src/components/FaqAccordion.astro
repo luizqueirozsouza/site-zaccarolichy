@@ -1,0 +1,36 @@
+---
+interface Item { pergunta: string; resposta: string }
+interface Props { itens: Item[] }
+const { itens } = Astro.props;
+---
+<div class="divide-y divide-line border-y border-line">
+  {itens.map((item, i) => (
+    <div>
+      <button type="button" class="faq-toggle flex w-full items-center justify-between gap-4 py-5 text-left" aria-expanded="false" aria-controls={`faq-${i}`}>
+        <span class="font-display text-lg text-navy">{item.pergunta}</span>
+        <span class="faq-icon text-xl text-gold" aria-hidden="true">+</span>
+      </button>
+      <div id={`faq-${i}`} class="hidden pb-6 text-sm text-muted">{item.resposta}</div>
+    </div>
+  ))}
+</div>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.faq-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
+      const icon = btn.querySelector('.faq-icon');
+      document.querySelectorAll<HTMLButtonElement>('.faq-toggle').forEach((other) => {
+        other.setAttribute('aria-expanded', 'false');
+        document.getElementById(other.getAttribute('aria-controls') || '')?.classList.add('hidden');
+        const otherIcon = other.querySelector('.faq-icon');
+        if (otherIcon) otherIcon.textContent = '+';
+      });
+      if (!open) {
+        btn.setAttribute('aria-expanded', 'true');
+        panel?.classList.remove('hidden');
+        if (icon) icon.textContent = '−';
+      }
+    });
+  });
+</script>

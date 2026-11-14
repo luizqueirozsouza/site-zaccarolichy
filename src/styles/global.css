@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+@theme static {
+  --color-ink: #14181d;
+  --color-navy: #0e1b2a;
+  --color-navy-soft: #1b2c42;
+  --color-paper: #ffffff;
+  --color-sand: #f6f5f2;
+  --color-line: #e3e1dc;
+  --color-muted: #5f6b76;
+  --color-gold: #b08d57;
+  --color-gold-dark: #967742;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-wordmark: 'Cinzel', Georgia, serif;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-paper text-ink font-sans antialiased; font-size: 1.0625rem; line-height: 1.75; }
+  h1, h2, h3, h4, h5, h6 { @apply font-display text-balance; font-weight: 600; }
+  ::selection { background: #b08d57; color: #fff; }
+  :focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-[1280px] px-6 lg:px-10; }
+  .section { @apply py-[4.5rem] lg:py-[7.5rem]; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-gold; }
+  .prose-site :where(p, ul, ol) { @apply text-ink/85; }
+  .prose-site :where(p) { @apply mb-5; }
+  .prose-site :where(h2) { @apply mt-12 mb-4 text-3xl lg:text-4xl; }
+  .prose-site :where(h3) { @apply mt-8 mb-3 text-2xl; }
+  .prose-site :where(ul) { @apply mb-6 list-disc space-y-2 pl-5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

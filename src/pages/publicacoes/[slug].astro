@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import StickyContactCard from '../../components/StickyContactCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('publicacoes');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: { '@type': 'Person', name: 'Davi Zaccaro Lichy' },
+  publisher: { '@type': 'Organization', name: 'Zaccaro Lichy Advocacia' },
+}];
+---
+<Base title={`${post.data.title} | Zaccaro Lichy Advocacia`} description={post.data.description} path={`/publicacoes/${post.id}/`} jsonLd={jsonLd}>
+  <article class="container-page grid gap-14 py-16 lg:grid-cols-[1fr_320px]">
+    <div>
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'Publicações', href: '/publicacoes/' }, { label: post.data.title }]} />
+      <p class="mt-6 text-xs uppercase tracking-widest text-gold">{post.data.area} · {post.data.tempoLeitura} min de leitura</p>
+      <h1 class="mt-4 text-[clamp(2.25rem,1.6rem+3vw,3.5rem)] leading-[1.1] text-navy">{post.data.title}</h1>
+      <p class="mt-5 text-muted">{post.data.resumo}</p>
+      <div class="prose-site mt-10 max-w-none"><Content /></div>
+      <p class="mt-12 border-t border-line pt-6 text-xs text-muted">Conteúdo informativo, em conformidade com o Provimento nº 205/2021 do CFOAB. Não constitui consulta jurídica.</p>
+    </div>
+    <StickyContactCard />
+  </article>
+</Base>

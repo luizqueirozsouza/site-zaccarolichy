@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+const posts = (await getCollection('publicacoes')).sort((a, b) => +b.data.date - +a.data.date);
+const areas = [...new Set(posts.map((p) => p.data.area))];
+---
+<Base title="Publicações | Zaccaro Lichy Advocacia" description="Artigos informativos sobre direito civil, empresarial, imobiliário, tributário e sucessões." path="/publicacoes/">
+  <section class="section container-page">
+    <SectionHeading eyebrow="Conteúdo jurídico" title="Publicações" intro="Artigos informativos, sem substituir consulta jurídica individualizada." />
+    <div class="mt-8 flex flex-wrap gap-2">
+      <button type="button" class="filtro border border-line px-4 py-2 text-xs uppercase tracking-widest text-navy" data-filtro="todos" aria-pressed="true">Todos</button>
+      {areas.map((area) => <button type="button" class="filtro border border-line px-4 py-2 text-xs uppercase tracking-widest text-muted" data-filtro={area} aria-pressed="false">{area}</button>)}
+    </div>
+    <div id="lista-artigos" class="mt-12 grid gap-10 md:grid-cols-3">
+      {posts.map((post) => (
+        <div data-area={post.data.area}>
+          <ArticleCard titulo={post.data.title} area={post.data.area} data={post.data.date.toLocaleDateString('pt-BR')} resumo={post.data.resumo} href={`/publicacoes/${post.id}/`} />
+        </div>
+      ))}
+    </div>
+    <noscript><p class="mt-6 text-sm text-muted">Todos os artigos estão listados acima.</p></noscript>
+  </section>
+</Base>
+<script>
+  const botoes = document.querySelectorAll<HTMLButtonElement>('.filtro');
+  const itens = document.querySelectorAll<HTMLElement>('#lista-artigos [data-area]');
+  botoes.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filtro = btn.dataset.filtro;
+      botoes.forEach((b) => { b.setAttribute('aria-pressed', 'false'); b.classList.add('text-muted'); });
+      btn.setAttribute('aria-pressed', 'true');
+      btn.classList.remove('text-muted');
+      itens.forEach((item) => { item.hidden = filtro !== 'todos' && item.dataset.area !== filtro; });
+    });
+  });
+</script>

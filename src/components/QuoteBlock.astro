@@ -1,0 +1,8 @@
+---
+interface Props { texto: string; autor: string }
+const { texto, autor } = Astro.props;
+---
+<blockquote class="border-l-2 border-gold pl-6">
+  <p class="font-display text-xl italic leading-relaxed text-navy">“{texto}”</p>
+  <footer class="mt-3 text-xs uppercase tracking-widest text-muted">{autor}</footer>
+</blockquote>

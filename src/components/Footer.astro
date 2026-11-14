@@ -1,0 +1,36 @@
+---
+import { SITE, NAV, AREAS } from '../lib/site';
+---
+<footer class="bg-navy text-white">
+  <div class="container-page grid gap-10 py-16 md:grid-cols-4">
+    <div>
+      <p class="font-wordmark text-lg tracking-[0.12em]">ZACCARO <span class="text-gold">LICHY</span></p>
+      <p class="mt-4 text-sm text-white/70">{SITE.endereco.rua}<br />{SITE.endereco.bairro} — {SITE.endereco.cidade}/{SITE.endereco.uf}<br />CEP {SITE.endereco.cep}</p>
+      <p class="mt-4 text-sm text-white/70">{SITE.telefone}<br />{SITE.email}</p>
+    </div>
+    <div>
+      <h2 class="eyebrow">Áreas de atuação</h2>
+      <ul class="mt-4 space-y-2 text-sm text-white/70">
+        {AREAS.map((area) => <li><a href={`/areas-de-atuacao/${area.slug}/`} class="hover:text-gold">{area.titulo}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="eyebrow">Institucional</h2>
+      <ul class="mt-4 space-y-2 text-sm text-white/70">
+        {NAV.map((item) => <li><a href={item.href} class="hover:text-gold">{item.label}</a></li>)}
+        <li><a href="/politica-de-privacidade/" class="hover:text-gold">Política de privacidade</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="eyebrow">Atendimento</h2>
+      <p class="mt-4 text-sm text-white/70">{SITE.atendimento}</p>
+      <p class="mt-4 text-sm text-white/70">{SITE.oab}<br />CNPJ {SITE.cnpj}</p>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container-page space-y-3 py-8 text-xs leading-relaxed text-white/50">
+      <p>Este site tem caráter estritamente institucional e informativo, em cumprimento ao Código de Ética e Disciplina da OAB e ao Provimento nº 205/2021 do CFOAB. É vedada a mercantilização da advocacia e a divulgação de valores de honorários.</p>
+      <p>© {new Date().getFullYear()} {SITE.nome}. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>

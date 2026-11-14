@@ -1,0 +1,56 @@
+---
+import { SITE, NAV, AREAS } from '../lib/site';
+import Button from './Button.astro';
+import MobileNav from './MobileNav.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<div class="hidden border-b border-line bg-sand text-[0.75rem] text-muted lg:block">
+  <div class="container-page flex h-9 items-center justify-between">
+    <span>{SITE.oab} · {SITE.cnpj}</span>
+    <span>{SITE.atendimento}</span>
+  </div>
+</div>
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="container-page flex h-20 items-center justify-between gap-6">
+    <a href="/" class="font-wordmark text-lg tracking-[0.12em] text-navy">
+      ZACCARO <span class="text-gold">LICHY</span>
+    </a>
+    <nav aria-label="Navegação principal" class="hidden items-center gap-8 lg:flex">
+      {NAV.map((item) => (
+        <div class="group relative">
+          <a href={item.href} class={`text-sm transition-colors hover:text-gold-dark ${isActive(item.href) ? 'text-gold-dark' : 'text-ink'}`}>
+            {item.label}
+          </a>
+          {item.href === '/areas-de-atuacao/' && (
+            <div class="invisible absolute left-0 top-full w-72 border border-line bg-paper p-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              {AREAS.map((area) => (
+                <a href={`/areas-de-atuacao/${area.slug}/`} class="block px-3 py-2 text-sm text-muted hover:text-gold-dark">
+                  {area.titulo}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+    <div class="hidden lg:block"><Button href="/contato/">Fale conosco</Button></div>
+    <button id="menu-toggle" type="button" class="lg:hidden" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="sr-only">Abrir menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" />
+      </svg>
+    </button>
+  </div>
+</header>
+<MobileNav />
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.classList.toggle('hidden', open);
+    document.body.classList.toggle('overflow-hidden', !open);
+  });
+</script>

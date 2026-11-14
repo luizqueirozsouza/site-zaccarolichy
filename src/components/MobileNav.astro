@@ -1,0 +1,19 @@
+---
+import { NAV, AREAS, SITE, WHATSAPP_URL } from '../lib/site';
+---
+<div id="mobile-nav" class="fixed inset-0 z-30 hidden bg-paper pt-24 lg:hidden">
+  <nav aria-label="Navegação mobile" class="container-page flex h-full flex-col gap-1 overflow-y-auto pb-24">
+    {NAV.map((item) => (
+      <a href={item.href} class="border-b border-line py-4 font-display text-3xl text-navy">{item.label}</a>
+    ))}
+    <div class="mt-4 grid gap-1">
+      {AREAS.map((area) => (
+        <a href={`/areas-de-atuacao/${area.slug}/`} class="py-2 text-sm text-muted">{area.titulo}</a>
+      ))}
+    </div>
+    <div class="mt-auto pt-8 text-sm text-muted">
+      <a href={WHATSAPP_URL} class="text-gold-dark">WhatsApp {SITE.whatsapp}</a>
+      <p class="mt-2">{SITE.oab}</p>
+    </div>
+  </nav>
+</div>

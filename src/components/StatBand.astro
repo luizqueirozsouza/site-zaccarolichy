@@ -1,0 +1,13 @@
+---
+const stats = [
+  { valor: '15+', rotulo: 'Anos de experiência jurídica' },
+  { valor: '7', rotulo: 'Áreas de atuação' },
+  { valor: 'OAB', rotulo: 'Exercício regular e ética' },
+  { valor: '100%', rotulo: 'Sigilo profissional' },
+];
+---
+<div class="grid grid-cols-2 gap-8 border-y border-line py-10 lg:grid-cols-4">
+  {stats.map((s) => (
+    <div><p class="font-display text-3xl text-gold">{s.valor}</p><p class="mt-1 text-xs uppercase tracking-widest text-muted">{s.rotulo}</p></div>
+  ))}
+</div>

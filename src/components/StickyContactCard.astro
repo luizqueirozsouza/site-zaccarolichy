@@ -1,0 +1,10 @@
+---
+import { SITE, WHATSAPP_URL } from '../lib/site';
+---
+<aside class="border border-line bg-sand p-6 lg:sticky lg:top-28">
+  <p class="eyebrow">Fale com o escritório</p>
+  <p class="mt-3 text-sm text-muted">Atendimento consultivo e contencioso, presencial em São Paulo e online em todo o país.</p>
+  <a href="/contato/" class="mt-5 inline-flex w-full items-center justify-center bg-navy px-4 py-3 text-sm font-semibold text-white hover:bg-navy-soft">Enviar uma mensagem</a>
+  <a href={WHATSAPP_URL} class="mt-3 inline-flex w-full items-center justify-center border border-navy/25 px-4 py-3 text-sm font-semibold text-navy hover:border-gold hover:text-gold-dark">WhatsApp {SITE.whatsapp}</a>
+  <p class="mt-4 text-xs text-muted">{SITE.telefone}<br />{SITE.email}</p>
+</aside>

@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import StickyContactCard from '../../components/StickyContactCard.astro';
+import LawyerCard from '../../components/LawyerCard.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const areas = await getCollection('areas');
+  return areas.map((area) => ({ params: { slug: area.id }, props: { area } }));
+}
+
+const { area } = Astro.props;
+const { Content } = await render(area);
+const artigos = (await getCollection('publicacoes'))
+  .filter((p) => p.data.area === area.data.title)
+  .slice(0, 2);
+
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: area.data.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.pergunta,
+    acceptedAnswer: { '@type': 'Answer', text: f.resposta },
+  })),
+}];
+---
+<Base title={`${area.data.title} | Zaccaro Lichy Advocacia`} description={area.data.description} path={`/areas-de-atuacao/${area.id}/`} jsonLd={jsonLd}>
+  <section class="border-b border-line bg-sand py-14">
+    <div class="container-page">
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'Áreas de atuação', href: '/areas-de-atuacao/' }, { label: area.data.title }]} />
+      <h1 class="mt-6 max-w-4xl text-[clamp(2.5rem,1.6rem+4vw,4rem)] leading-[1.08] text-navy">{area.data.title}</h1>
+      <p class="mt-5 max-w-2xl text-muted">{area.data.resumo}</p>
+    </div>
+  </section>
+
+  <div class="container-page grid gap-14 py-16 lg:grid-cols-[1fr_320px]">
+    <div>
+      <div class="prose-site max-w-none"><Content /></div>
+
+      <h2 class="mt-14 text-3xl text-navy">Como atuamos</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2">
+        {area.data.frentes.map((f) => (
+          <div class="border-t border-line pt-4">
+            <h3 class="font-display text-xl text-navy">{f.titulo}</h3>
+            <p class="mt-2 text-sm text-muted">{f.texto}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 class="mt-14 text-3xl text-navy">Situações em que podemos ajudar</h2>
+      <ul class="mt-6 space-y-3">
+        {area.data.cenarios.map((c) => <li class="flex gap-3 text-muted"><span class="text-gold" aria-hidden="true">—</span>{c}</li>)}
+      </ul>
+
+      <h2 class="mt-14 text-3xl text-navy">Perguntas frequentes</h2>
+      <div class="mt-6"><FaqAccordion itens={area.data.faqs} /></div>
+
+      <h2 class="mt-14 text-3xl text-navy">Advogado responsável</h2>
+      <div class="mt-6"><LawyerCard nome="Dr. Davi Zaccaro Lichy" cargo="Sócio fundador" oab={SITE.oab} bio="Pós-graduado em Direito Penal, Processo Penal e Direito Imobiliário, e pós-graduando em Direito Empresarial." /></div>
+
+      {artigos.length > 0 && (
+        <>
+          <h2 class="mt-14 text-3xl text-navy">Publicações relacionadas</h2>
+          <div class="mt-6 grid gap-8 sm:grid-cols-2">
+            {artigos.map((a) => <ArticleCard titulo={a.data.title} area={a.data.area} data={a.data.date.toLocaleDateString('pt-BR')} resumo={a.data.resumo} href={`/publicacoes/${a.id}/`} />)}
+          </div>
+        </>
+      )}
+    </div>
+    <StickyContactCard />
+  </div>
+</Base>

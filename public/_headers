@@ -1,0 +1,4 @@
+# Demonstração — não indexar enquanto o domínio real não estiver no ar.
+# Remover este bloco quando o site entrar em produção no domínio oficial.
+/*
+  X-Robots-Tag: noindex, nofollow

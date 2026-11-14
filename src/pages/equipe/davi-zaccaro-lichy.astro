@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { SITE, AREAS, WHATSAPP_URL } from '../../lib/site';
+import { attorneyJsonLd } from '../../lib/seo';
+---
+<Base title="Dr. Davi Zaccaro Lichy | Zaccaro Lichy Advocacia" description="Perfil do Dr. Davi Zaccaro Lichy, sócio fundador da Zaccaro Lichy Advocacia." path="/equipe/davi-zaccaro-lichy/" jsonLd={[attorneyJsonLd()]}>
+  <section class="border-b border-line bg-sand py-14">
+    <div class="container-page">
+      <Breadcrumb itens={[{ label: 'Início', href: '/' }, { label: 'Equipe', href: '/o-escritorio/' }, { label: 'Davi Zaccaro Lichy' }]} />
+      <h1 class="mt-6 text-[clamp(2.5rem,1.6rem+4vw,4rem)] text-navy">Dr. Davi Zaccaro Lichy</h1>
+      <p class="mt-3 text-xs uppercase tracking-widest text-gold">Sócio fundador</p>
+      <p class="mt-2 text-sm text-muted">{SITE.oab}</p>
+    </div>
+  </section>
+
+  <section class="section container-page grid gap-12 lg:grid-cols-[1fr_320px]">
+    <div class="prose-site">
+      <p>Pós-graduado em Direito Penal, Processo Penal e Direito Imobiliário, e pós-graduando em Direito Empresarial.</p>
+      <p>Atuação estratégica consultiva e contenciosa perante tribunais estaduais e superiores, com foco em advocacia preventiva e na mitigação de riscos patrimoniais.</p>
+      <h2>Áreas de atuação</h2>
+      <ul>{AREAS.map((a) => <li><a href={`/areas-de-atuacao/${a.slug}/`}>{a.titulo}</a></li>)}</ul>
+    </div>
+    <aside class="border border-line bg-sand p-6">
+      <p class="eyebrow">Contato direto</p>
+      <p class="mt-4 text-sm text-muted">{SITE.email}<br />{SITE.telefone}<br />WhatsApp {SITE.whatsapp}</p>
+      <a href={WHATSAPP_URL} class="mt-5 inline-flex w-full items-center justify-center bg-navy px-4 py-3 text-sm font-semibold text-white">Falar no WhatsApp</a>
+    </aside>
+  </section>
+</Base>
